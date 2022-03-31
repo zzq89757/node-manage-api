@@ -1,4 +1,4 @@
-const joi = require('@hapi/joi');
+const joi = require('joi');
 /**
  * string() 值必须是字符串
  * alphanum() 值只能是包含 a-zA-Z0-9 的字符串
