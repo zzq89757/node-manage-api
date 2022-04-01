@@ -9,7 +9,8 @@ const userHandler = require('../router_handler/user')
 
 // 导入用户名密码验证模块
 const {
-  reg_login_schema
+  reg_login_schema,
+  update_password_schema
 } = require('../schema/user')
 
 
@@ -17,7 +18,9 @@ const {
 router.post('/reguser', expressJoi(reg_login_schema), userHandler.regUser)
 // 登录 并验证用户名密码合法性
 router.post('/login', expressJoi(reg_login_schema), userHandler.login)
+// 重置密码
+router.post('/updatepwd',expressJoi(update_password_schema), userHandler.updatepwd)
 
-router.get('/', userHandler.regUser)
+
 // 将路由对象共享出去
 module.exports = router
