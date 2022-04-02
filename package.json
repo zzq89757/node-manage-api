@@ -17,6 +17,7 @@
     "express-jwt": "^6.1.1",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
+    "mockjs": "^1.1.0",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.15"
   }
