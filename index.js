@@ -1,7 +1,8 @@
 const express = require('express');
 const expressJWT = require('express-jwt');
-const route = require('./route/routes');
+const route = require('./route/user');
 const userInforoute = require('./route/user_info');
+const dataRoute = require('./route/data');
 const app = express();
 const cors = require('cors');
 const joi = require('joi');
@@ -43,6 +44,9 @@ app.use('/api',route);
 
 // 添加用户信息相关路由
 app.use('/my',userInforoute);
+
+// 添加获取数据的相关路由
+app.use('/api/data',dataRoute);
 
 // 监听80端口
 app.listen(80,()=>{
