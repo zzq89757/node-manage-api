@@ -20,7 +20,6 @@ exports.regUser = (req, res) => {
     if (err) return res.cc(err)
     // 查询到的包含结果的数组长度不为零，即用户名存在
     if (results.length) return res.cc('用户名被占用，请更换其他用户名！')
-
     // 用户名可用，对密码进行加密
     userinfo.password = bcrypt.hashSync(userinfo.password, 10);
 
@@ -75,41 +74,6 @@ exports.login = (req, res) => {
       message: '登录成功！',
       // 为了方便客户端使用 Token，在服务器端直接拼接上 Bearer 的前缀
       token: 'Bearer ' + tokenStr,
-    })
-  })
-
-}
-exports.updatepwd = (req, res) => {
-  // 定义根据 id 查询用户数据的 SQL 语句
-  const sql = `select * from user where id=?`
-  console.log(req.body);
-  // 执行 SQL 语句查询用户是否存在
-  db.query(sql, req.user.id, (err, results) => {
-    // 执行 SQL 语句失败
-    if (err) return res.cc(err)
-
-    // 检查指定 id 的用户是否存在
-    if (!results.length) return res.cc('用户不存在！')
-
-    // 判断提交的旧密码是否正确
-    const compareResult = bcrypt.compareSync(req.body.oldPwd, results[0].password)
-    if (!compareResult) return res.cc('原密码错误！')
-    // 定义更新用户密码的 SQL 语句
-    const sql = `update user set password=? where id=?`
-
-    // 对新密码进行 bcrypt 加密处理
-    const newPwd = bcrypt.hashSync(req.body.newPwd, 10)
-
-    // 执行 SQL 语句，根据 id 更新用户的密码
-    db.query(sql, [newPwd, req.user.id], (err, results) => {
-      // SQL 语句执行失败
-      if (err) return res.cc(err)
-
-      // SQL 语句执行成功，但是影响行数不等于 1
-      if (results.affectedRows !== 1) return res.cc('更新密码失败！')
-
-      // 更新密码成功
-      res.cc('更新密码成功！', 0)
     })
   })
 
