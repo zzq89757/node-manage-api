@@ -7,8 +7,6 @@ const bcrypt = require('bcryptjs');
 
 const jwt = require('jsonwebtoken');
 
-const ejwt = require('express-jwt');
-
 const config = require('../config/token');
 
 // 注册用户的处理函数
